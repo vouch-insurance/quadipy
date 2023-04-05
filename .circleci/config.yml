@@ -1,0 +1,74 @@
+version: 2.1
+orbs:
+  python: circleci/python@2.1.1
+  vouch: svinstech/vouch@1.4
+
+workflows:
+  test:
+    jobs:
+      - test37
+      - test38
+      - test39
+  deploy-docs:
+    jobs:
+      - deploy-docs:
+          name: dev-deploy-docs
+          context: dockerhub-creds
+          app_env: dev
+      - deploy-docs:
+          name: stg-deploy-docs
+          context: dockerhub-creds
+          filters:
+            branches:
+              only: /^(?:main|.*-hotfix)$/
+          app_env: stg
+      - deploy-docs:
+          name: prd-deploy-docs
+          context: dockerhub-creds
+          filters:
+            branches:
+              only: /^(?:main|.*-hotfix)$/
+          requires:
+            - stg-deploy-docs
+          app_env: prd
+
+jobs:
+  test39: &test-template
+    docker:
+      - image: 'cimg/python:3.9'
+    steps:
+      - checkout
+      - python/install-packages:
+          pkg-manager: poetry
+      - run:
+          name: run tests
+          command: make test
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: test-results
+
+  test37:
+    <<: *test-template
+    docker:
+      - image: 'cimg/python:3.7'
+
+  test38:
+    <<: *test-template
+    docker:
+      - image: 'cimg/python:3.8'
+
+  deploy-docs:
+    docker:
+      - image: cimg/python:3.9
+    parameters:
+      app_env:
+        type: string
+    steps:
+      - vouch/build-and-deploy-front-end-app:
+          app_env: << parameters.app_env >>
+          api_subdomain: quadipy
+          build_command: poetry run mkdocs build
+          build_directory: site
+          install_command: poetry install -vv --no-ansi
+          traefik_service_type: private

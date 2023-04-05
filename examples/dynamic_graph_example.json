@@ -1,0 +1,15 @@
+{
+    "predicate_mapping": {
+        "city": {
+            "predicate_uri": "https://schema.org/City"
+        },
+        "address": {
+            "predicate_uri": "https://schema.org/address"
+        }
+    },
+    "primary_key": "id",
+    "date_field": "updated_at",
+    "subject_namespace": "source://example_source",
+    "graph_namespace": "graph://example_source",
+    "source_name": "wikipedia"
+}

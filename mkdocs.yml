@@ -1,0 +1,14 @@
+site_name: quadipy
+
+theme:
+  name: "material"
+
+plugins:
+  - mkdocstrings
+
+nav:
+  - quadipy Docs: index.md
+  - Tutorial:
+    - tutorials/basic.md
+    - 'Adding to RDF Graph': tutorials/graph.md
+  - reference.md

@@ -1,0 +1,19 @@
+{
+    "predicate_mapping": {
+        "city": {
+            "predicate_uri": "https://schema.org/City"
+        },
+        "address": {
+            "predicate_uri": "https://schema.org/address"
+        },
+        "url": {
+            "predicate_uri": "https:schema.org/url, website",
+            "obj_datatype": "uri"
+        },
+        "created_at": {
+            "predicate_uri": "https://schema.org/dateCreated",
+            "obj_datatype": "date"
+        }
+    },
+    "primary_keyyy": "id"
+}

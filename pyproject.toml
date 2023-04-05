@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "quadipy"
+version = "0.2.3"
+description = "Package to package to transform structured data into RDF graph form"
+readme = "docs/index.md"
+authors = ["Nabeel Zewail <nabeel.zewail@vouch.us>"]
+
+[tool.poetry.scripts]
+quadipy = 'quadipy.cli:cli'
+
+[tool.poetry.dependencies]
+python = "^3.7"
+pydantic = "^1.10.2"
+rdflib = "^6.2.0"
+click = "^8.1.0"
+
+[tool.poetry.dev-dependencies]
+black = "*"
+flake8 = "~=3.9"
+isort = "~=5.6"
+mypy = "==0.910"
+importlib-metadata = "<5.0"
+pycodestyle = "~=2.7"
+pylint = "~=2.9"
+pytest = "~=6.2"
+pytest-cov = "~=2.12"
+pre-commit = "~=2.14"
+types-setuptools = "^65.4.0"
+mypy-extensions = "==0.4.3"
+mkdocs = "^1.4.2"
+mkdocs-material = "^8.5.8"
+mkdocstrings = {extras = ["python"], version = "^0.19.0"}
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
